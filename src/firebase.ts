@@ -1,5 +1,12 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_APIKEY,
@@ -12,3 +19,51 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+export interface Task {
+  id: string;
+  title: string;
+  description: string;
+  completed: boolean;
+  timestamp: number;
+}
+
+export async function getTasks(): Promise<Task[]> {
+  const snapshot = await getDocs(collection(db, "tasks"));
+  return snapshot.docs.map((doc) => {
+    const data = doc.data();
+    return {
+      id: doc.id,
+      title: data.title,
+      description: data.description,
+      completed: data.completed,
+      timestamp: data.timestamp,
+    };
+  });
+}
+
+export async function addTask(
+  title: string,
+  description: string,
+): Promise<Task> {
+  const newTaskRef = doc(collection(db, "tasks"));
+  const newTask = {
+    title,
+    description,
+    completed: false,
+    timestamp: Date.now(),
+  };
+  await setDoc(newTaskRef, newTask);
+  return {
+    id: newTaskRef.id,
+    ...newTask,
+  };
+}
+
+export async function deleteTask(id: string) {
+  await deleteDoc(doc(db, "tasks", id));
+}
+
+export async function updateTask(task: Task) {
+  await setDoc(doc(db, "tasks", task.id), task);
+}
