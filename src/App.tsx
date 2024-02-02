@@ -45,33 +45,29 @@ function App() {
             alignItems: "start",
           }}
         >
-          <label>
-            Title
-            <input
-              style={{
-                width: "100%",
-                marginBottom: "1em",
-              }}
-              id="title"
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </label>
+          <label htmlFor="title">Title</label>
+          <input
+            style={{
+              width: "100%",
+              marginBottom: "1em",
+            }}
+            id="title"
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
 
-          <label>
-            Description
-            <textarea
-              style={{
-                width: "100%",
-              }}
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </label>
+          <label htmlFor="description">Description</label>
+          <textarea
+            style={{
+              width: "100%",
+            }}
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
           <div
             style={{
               display: "flex",
