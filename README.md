@@ -6,6 +6,9 @@
 ## What is this?
 A simple to-do list app that allows you to create, read, update and delete to-dos from Firestore.
 
+## Demo
+See `demo.gif` in the root of the repository. (too lazy to remove black bars and embed it here)
+
 ## How to use
 ```bash
 git clone git@github.com:elias-ka/IN00CT04_Firebase.git && cd IN00CT04_Firebase
